@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Admission Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.5rem;
+      border-bottom: 1px solid #ddd;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.2rem;
+      }
+
+      th, td {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>School Admission Finder</h1>
+    <label for="city">Select City:</label>
+    <select id="city">
+      <option value="Delhi">Delhi</option>
+      <option value="Mumbai">Mumbai</option>
+      <option value="Chennai">Chennai</option>
+      <option value="Kolkata">Kolkata</option>
+      <option value="Bangalore">Bangalore</option>
+      <option value="Hyderabad">Hyderabad</option>
+      <option value="Pune">Pune</option>
+    </select>
+
+    <label for="class">Select Class:</label>
+    <select id="class">
+      <option value="Nursery">Nursery</option>
+      <option value="LKG">LKG</option>
+      <option value="UKG">UKG</option>
+      <option value="Class 1">Class 1</option>
+      <option value="Class 2">Class 2</option>
+    </select>
+
+    <button onclick="searchSchools()">Find Schools</button>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    const dummyData = {
+      "Delhi": [
+        {
+          name: "Delhi Public School",
+          address: "RK Puram, Delhi",
+          website: "https://www.dpsrkp.net",
+          rating: "4.5",
+          admissionFees: "₹20,000",
+          classFees: "₹3,000/month"
+        },
+        {
+          name: "Modern School",
+          address: "Barakhamba Road, Delhi",
+          website: "https://www.modernschool.net",
+          rating: "4.2",
+          admissionFees: "₹25,000",
+          classFees: "₹3,500/month"
+        }
+      ],
+      "Mumbai": [
+        {
+          name: "Jamnabai Narsee School",
+          address: "JVPD Scheme, Mumbai",
+          website: "https://www.jns.ac.in",
+          rating: "4.6",
+          admissionFees: "₹30,000",
+          classFees: "₹4,000/month"
+        }
+      ]
+    };
+
+    function searchSchools() {
+      const city = document.getElementById('city').value;
+      const selectedClass = document.getElementById('class').value;
+      const schools = dummyData[city] || [];
+      let html = `<table><thead><tr><th>Name</th><th>Address</th><th>Website</th><th>Rating</th><th>Admission Fees</th><th>Class Fees</th></tr></thead><tbody>`;
+
+      if (schools.length === 0) {
+        html += `<tr><td colspan="6">No schools found for this selection.</td></tr>`;
+      } else {
+        for (const school of schools) {
+          html += `<tr>
+            <td>${school.name}</td>
+            <td>${school.address}</td>
+            <td><a href="${school.website}" target="_blank">Visit</a></td>
+            <td>${school.rating}</td>
+            <td>${school.admissionFees}</td>
+            <td>${school.classFees}</td>
+          </tr>`;
+        }
+      }
+
+      html += `</tbody></table>`;
+      document.getElementById('results').innerHTML = html;
+    }
+  </script>
+</body>
+</html>
